@@ -44,7 +44,7 @@ recepie *current = &curr_recepie;
 
 recepie MasoorDal = {"MasoorDal", {5, 5, 1, 2, 2, 480, 15, 80, 100, 60, 9}, 60, 12, {{"Dispensing and Heating 15ml Oil", 5}, {"Dispensing 5g Cumin", 5}, {"Dispensing 2g Mustard", 5}, {"Dispensing 9g Garlic", 5}, {"Chopping and dispensing 100g Onion", 5}, {"Chopping and dispensing 80g Tomato", 5}, {"Dispensing 1g Turmeric", 5}, {"Steaming and dispensing 50g Toor Dal", 5}, {"Dispensing 5g Salt", 5}, {"Dispensing 480ml Water", 5}, {"Sprinkling Pepper as a finishing Touch", 5},{"Cleaning...",5}},{
 		    "MODULE:liquid|2|15",
-        "MODULE:spice|1|5",
+        "MODULE:stirrer",
         "MODULE:spice|2|2",
         "MODULE:hopper||9",
         "MODULE:chop|1|100",
@@ -181,7 +181,7 @@ void StartCooking(lv_event_t *e)
 	{
 		char buffer[128];
 		sprintf(buffer, "RECIPE:%s", curr_recepie.name);
-		Serial.println(buffer);
+		Serial1.println(buffer);
 
 		for (int i = 0; i < NUM_ING; i++)
 		{
@@ -198,7 +198,7 @@ void StartCooking(lv_event_t *e)
     lv_obj_clear_flag(ui_Arc2, LV_OBJ_FLAG_CLICKABLE);
 		lv_arc_set_range(ui_Arc2, 0, current->cook_time);
 		lv_arc_set_value(ui_Arc2, 0);
-    Serial.println(current->serialmsg[0].c_str());
+    Serial1.println(current->serialmsg[0].c_str());
 
 		if (CookingTimer)
 			lv_timer_del(CookingTimer);
@@ -236,7 +236,7 @@ void cooking_timer_cb(lv_timer_t *timer)
 				//Serial.println(serialmsg[CurrentStep]);
 			}
 			if (!current->serialmsg[CurrentStep].isEmpty()) {
-            Serial.println(current->serialmsg[CurrentStep].c_str());
+            Serial1.println(current->serialmsg[CurrentStep].c_str());
         	}
 		}
 	}else {

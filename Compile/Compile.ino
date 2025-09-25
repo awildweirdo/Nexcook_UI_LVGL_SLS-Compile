@@ -18,6 +18,13 @@ TCA9534 ioex;
 
 LGFX gfx;
 
+
+#define UART0_TX 43
+#define UART0_RX 44
+
+#define UART1_TX 20
+#define UART1_RX 19
+
 /* Change to your screen resolution */
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *buf;
@@ -55,8 +62,11 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 
 void setup()
 {
-  Serial.begin(115200); 
-
+  Serial.begin(115200, SERIAL_8N1, UART0_RX, UART0_TX); 
+  //Serial1.begin(115200);
+  
+  Serial1.begin(115200, SERIAL_8N1, UART1_RX, UART1_TX);
+  Serial1.println("MODULE:stirrer");
   pinMode(19, OUTPUT);
 
   Wire.begin(15, 16);
